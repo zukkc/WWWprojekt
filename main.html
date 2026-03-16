@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="core.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Pogoda</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="btn"><a href="#">Glowna</a></li>
+        <li class="btn"><a href="#">Podstrona</a></li>
+        <li class="btn"><a href="#">Podstrona2</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="daily-weather" class="card">
+
+      <section id="daily-weather-general" class="card-content">
+        <h2>Pogoda</h2>
+        <div>
+          <input type="text" name="city" placeholder="Wybierz miasto">
+          <p id="temperature" class="p-large">19°C</p>
+          <p class="p-big">Słonecznie</p>
+          <p class="p-normal">Odczuwalna</p>
+          <span class="p-value">14°C</span>
+          <p class="p-normal">Ciśnienie</p>
+          <span class="p-value">1012 hPa</span>
+          <p class="p-normal">Wiatr</p>
+          <span class="p-value">12 km/h</span>
+          <p class="p-big">Jakość powietrza</p>
+        </div>
+      </section>
+
+      <div class="v-separator"></div>
+
+      <section id="daily-weather-details" class="card-content">
+        <h2>Szczegóły</h2>
+        <canvas id="daily-weather-chart"></canvas>
+      </section>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Projekt na studia</p>
+  </footer>
+  <script src="js/setupDailyWeatherChart.js"></script>
+</body>
+
+</html>

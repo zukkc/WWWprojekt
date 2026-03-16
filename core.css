@@ -1,0 +1,221 @@
+:root {
+  color-scheme: light;
+  --bg: rgba(0, 0, 0, 0.3);
+  --line: rgba(68, 47, 32, 0.12);
+  --border: #fafafa;
+  --text: #cfcfcf;
+  --text-darker: #afafaf;
+  --muted: #71594b;
+  --accent: #1f6f78;
+  --accent-strong: #15525a;
+  --accent-soft: #d0edf0;
+  --sun: #f0a33e;
+  --good: #408c5f;
+  --warn: #c66a2b;
+  --shadow: 0 5px 5px rgba(26, 35, 23, 0.2);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
+  --font-body: "Space Grotesk", "Trebuchet MS", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(45, 120, 200, 0.8), transparent 14%),
+    radial-gradient(circle at top right, rgba(31, 111, 120, 0.24), transparent 28%),
+    linear-gradient(145deg, #3e6bbb 0%, #3e6aaa 38%, #254b59 100%);
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  border-radius: 999px;
+  filter: blur(18px);
+}
+
+body::before {
+  top: 8%;
+  right: 12%;
+  width: 260px;
+  height: 260px;
+  background: rgba(31, 111, 120, 0.32);
+}
+
+body::after {
+  bottom: 10%;
+  left: 8%;
+  width: 320px;
+  height: 320px;
+  background: rgba(70, 163, 162, 0.14);
+}
+
+main,
+nav,
+footer,
+.card,
+nav ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  flex: 1;
+}
+
+/* 
+  using a grid so that all elements 
+  have the same width as the largest element 
+*/
+nav ul {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 1rem;
+  background-color: var(--bg);
+}
+
+nav ul> :first-child {
+  border-bottom-left-radius: var(--radius-lg);
+}
+
+nav ul> :last-child {
+  border-bottom-right-radius: var(--radius-lg);
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+input {
+  width: 90%;
+  background-color: var(--bg);
+  color: var(--text);
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+}
+
+input:focus {
+  outline: none;
+  border: none;
+}
+
+.card {
+  position: relative;
+  align-items: stretch;
+  border-radius: var(--radius-lg);
+  background-color: var(--bg);
+  box-shadow: var(--shadow);
+  color: var(--text-darker);
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+}
+
+.btn {
+  position: relative;
+  cursor: pointer;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  border: 0 solid var(--border);
+  border-radius: inherit;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.btn:hover::before {
+  opacity: 1;
+  transform: scale(1.05);
+  border-width: 1px;
+}
+
+.btn:active::before {
+  transform: scale(1);
+}
+
+.btn:active {
+  background-color: transparent;
+}
+
+.v-separator {
+  width: 1px;
+  align-self: stretch;
+  margin: 1rem 0 1rem 0;
+  background-color: var(--text-darker);
+}
+
+.p-large {
+  color: var(--text-darker);
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+.p-big {
+  color: var(--text-darker);
+  font-size: 1.5rem;
+  margin: 0.3rem 0;
+}
+
+.p-normal {
+  color: var(--text-darker);
+  font-size: 1rem;
+  margin: 0.2rem 0;
+}
+
+.p-small {
+  color: var(--text-darker);
+  font-size: 0.5rem;
+  margin: 0.1rem 0;
+}
+
+.p-value {
+  font-weight: 700;
+  padding-left: 10px;
+}
+
+#daily-weather-general {
+  width: 33%;
+  height: auto;
+}
+
+#daily-weather-details {
+  width: 66%;
+  height: auto;
+}
