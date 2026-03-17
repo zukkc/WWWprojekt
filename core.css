@@ -129,6 +129,15 @@ input:focus {
   border: none;
 }
 
+button {
+  outline: none;
+  background-color: var(--bg);
+  border: none;
+  color: var(--text-darker);
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
 .card {
   position: relative;
   align-items: stretch;
@@ -219,3 +228,17 @@ input:focus {
   width: 66%;
   height: auto;
 }
+
+#daily-weather-legend {
+  width: 100%;
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+
+
+
+
+
