@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #eef2f7;
+  color: #1d2a36;
+}
+
+header {
+  background-color: #2e5f8a;
+  color: #ffffff;
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+
+main {
+  padding: 1rem;
+}
+
+.panel {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1 1 220px;
+}
+
+input,
+button {
+  font: inherit;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+input {
+  border: 1px solid #9eafbf;
+}
+
+button {
+  border: none;
+  background-color: #2e5f8a;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.button-row {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.button-row .active {
+  background-color: #1f405d;
+}
+
+.chart-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  background-color: #1d2a36;
+}
+
+#weather-chart {
+  display: block;
+  width: 100%;
+  height: 360px;
+}
+
+.legend {
+  margin-top: 1rem;
+  color: #516274;
+}
+
+.error-text {
+  color: #b22222;
+  min-height: 1.2rem;
+}

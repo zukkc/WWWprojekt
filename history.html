@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dane historyczne</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/history.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="btn"><a href="index.html">Glowna</a></li>
+        <li class="btn"><a href="hourly.html">Godzinowa</a></li>
+        <li class="btn"><a href="weekly.html">7 dni</a></li>
+        <li class="btn"><a href="history.html">Historia</a></li>
+        <li class="btn"><a href="air.html">Powietrze</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card">
+      <section class="card-content">
+        <h1>Dane historyczne</h1>
+
+        <form id="city-form" class="search-panel">
+          <label for="city-input" class="p-normal">Wpisz miasto</label>
+          <div class="search-row">
+            <input id="city-input" type="text" name="city" placeholder="Np. Wroclaw" autocomplete="off">
+            <button type="submit" class="btn">Sprawdz</button>
+          </div>
+          <div class="date-row">
+            <label for="start-date" class="p-normal">
+              Data od
+              <input id="start-date" type="date" name="start-date">
+            </label>
+            <label for="end-date" class="p-normal">
+              Data do
+              <input id="end-date" type="date" name="end-date">
+            </label>
+          </div>
+          <div id="search-history-list" class="search-history-list" aria-label="Historia wyszukiwan" hidden></div>
+          <p id="form-error" class="form-error" aria-live="polite"></p>
+        </form>
+
+        <div class="summary-panel">
+          <p id="location-name" class="p-big">Brak danych</p>
+          <p id="date-range" class="p-small">-</p>
+        </div>
+
+        <p id="status-message" class="status-message" aria-live="polite"></p>
+      </section>
+
+      <div class="v-separator"></div>
+
+      <section class="card-content">
+        <div class="details-heading">
+          <h2>Tabela</h2>
+          <p class="p-small">Archiwum dla zakonczonych dni.</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Dzien</th>
+                <th>Srednia</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Opady</th>
+                <th>Wiatr</th>
+              </tr>
+            </thead>
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Projekt na studia</p>
+  </footer>
+
+  <script src="js/search_history.js"></script>
+  <script src="js/history.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jakosc powietrza</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/air.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="btn"><a href="index.html">Glowna</a></li>
+        <li class="btn"><a href="hourly.html">Godzinowa</a></li>
+        <li class="btn"><a href="weekly.html">7 dni</a></li>
+        <li class="btn"><a href="history.html">Historia</a></li>
+        <li class="btn"><a href="air.html">Powietrze</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card">
+      <section class="card-content">
+        <h1>Jakosc powietrza</h1>
+
+        <form id="city-form" class="search-panel">
+          <label for="city-input" class="p-normal">Wpisz miasto</label>
+          <div class="search-row">
+            <input id="city-input" type="text" name="city" placeholder="Np. Lodz" autocomplete="off">
+            <button type="submit" class="btn">Sprawdz</button>
+          </div>
+          <div id="search-history-list" class="search-history-list" aria-label="Historia wyszukiwan" hidden></div>
+          <p id="form-error" class="form-error" aria-live="polite"></p>
+        </form>
+
+        <div class="summary-panel">
+          <p id="location-name" class="p-big">Brak danych</p>
+          <p class="p-small">Aktualny stan oraz tabela godzinowa.</p>
+        </div>
+
+        <div class="stats-list">
+          <div class="stat-item">
+            <p class="p-normal">Europejski AQI</p>
+            <span id="european-aqi" class="p-value">--</span>
+          </div>
+          <div class="stat-item">
+            <p class="p-normal">PM2.5</p>
+            <span id="pm25" class="p-value">--</span>
+          </div>
+          <div class="stat-item">
+            <p class="p-normal">PM10</p>
+            <span id="pm10" class="p-value">--</span>
+          </div>
+          <div class="stat-item">
+            <p class="p-normal">NO2</p>
+            <span id="no2" class="p-value">--</span>
+          </div>
+          <div class="stat-item">
+            <p class="p-normal">O3</p>
+            <span id="ozone" class="p-value">--</span>
+          </div>
+          <div class="stat-item">
+            <p class="p-normal">UV</p>
+            <span id="uv-index" class="p-value">--</span>
+          </div>
+        </div>
+
+        <p id="status-message" class="status-message" aria-live="polite"></p>
+      </section>
+
+      <div class="v-separator"></div>
+
+      <section class="card-content">
+        <div class="details-heading">
+          <h2>Tabela godzinowa</h2>
+          <p class="p-small">Wykaz dla najblizszych 24 godzin.</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Godzina</th>
+                <th>AQI</th>
+                <th>PM2.5</th>
+                <th>PM10</th>
+              </tr>
+            </thead>
+            <tbody id="air-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Projekt na studia</p>
+  </footer>
+
+  <script src="js/search_history.js"></script>
+  <script src="js/air.js"></script>
+</body>
+
+</html>

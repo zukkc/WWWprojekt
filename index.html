@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aktualna pogoda</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="btn"><a href="index.html">Glowna</a></li>
+        <li class="btn"><a href="hourly.html">Godzinowa</a></li>
+        <li class="btn"><a href="weekly.html">7 dni</a></li>
+        <li class="btn"><a href="history.html">Historia</a></li>
+        <li class="btn"><a href="air.html">Powietrze</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="daily-weather" class="card">
+      <section id="daily-weather-general" class="card-content">
+        <h1>Pogoda w miescie</h1>
+
+        <form id="city-form" class="search-panel">
+          <label for="city-input" class="p-normal">Wpisz miasto</label>
+          <div class="search-row">
+            <input id="city-input" type="text" name="city" placeholder="Np. Warszawa" autocomplete="off">
+            <button type="submit" class="btn">Sprawdz</button>
+          </div>
+          <div id="search-history-list" class="search-history-list" aria-label="Historia wyszukiwan" hidden></div>
+          <p id="form-error" class="form-error" aria-live="polite"></p>
+        </form>
+
+        <div class="summary-panel">
+          <p id="location-name" class="p-big">Ladowanie danych...</p>
+          <p id="current-time" class="p-small"></p>
+          <p id="temperature" class="p-large">--</p>
+          <p id="weather-description" class="p-big">Brak danych</p>
+        </div>
+
+        <div id="weather-stats" class="stats-list">
+          <div class="stat-item">
+            <p class="p-normal">Odczuwalna</p>
+            <span id="apparent-temperature" class="p-value">--</span>
+          </div>
+          <div class="stat-item">
+            <p class="p-normal">Cisnienie</p>
+            <span id="pressure" class="p-value">--</span>
+          </div>
+          <div class="stat-item">
+            <p class="p-normal">Wiatr</p>
+            <span id="wind-speed" class="p-value">--</span>
+          </div>
+          <div class="stat-item">
+            <p class="p-normal">Wilgotnosc</p>
+            <span id="humidity" class="p-value">--</span>
+          </div>
+          <div class="stat-item">
+            <p class="p-normal">Opady</p>
+            <span id="precipitation" class="p-value">--</span>
+          </div>
+        </div>
+
+        <p id="status-message" class="status-message" aria-live="polite"></p>
+      </section>
+
+      <div class="v-separator"></div>
+
+      <section id="daily-weather-details" class="card-content">
+        <div class="details-heading">
+          <h2>Prognoza godzinowa</h2>
+          <p id="chart-caption" class="p-small">Dane dla najblizszych 24 godzin.</p>
+        </div>
+        <div id="daily-weather-legend">
+          <button type="button" id="show-temp" class="btn active">Temperatura</button>
+          <button type="button" id="show-rain" class="btn">Opady</button>
+          <button type="button" id="show-wind" class="btn">Wiatr</button>
+        </div>
+        <div class="chart-box">
+          <svg id="hourly-chart" aria-label="Wykres pogody godzinowej"></svg>
+        </div>
+        <div class="chart-summary" aria-label="Podsumowanie prognozy godzinowej">
+          <div class="chart-summary-item">
+            <p class="p-normal">Min temp.</p>
+            <span id="hourly-min-temp" class="p-value">--</span>
+          </div>
+          <div class="chart-summary-item">
+            <p class="p-normal">Max temp.</p>
+            <span id="hourly-max-temp" class="p-value">--</span>
+          </div>
+          <div class="chart-summary-item">
+            <p class="p-normal">Suma opadow</p>
+            <span id="hourly-rain-sum" class="p-value">--</span>
+          </div>
+          <div class="chart-summary-item">
+            <p class="p-normal">Max wiatr</p>
+            <span id="hourly-max-wind" class="p-value">--</span>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Projekt na studia</p>
+  </footer>
+
+  <script src="js/weather_chart.js"></script>
+  <script src="js/search_history.js"></script>
+  <script src="js/current.js"></script>
+</body>
+
+</html>

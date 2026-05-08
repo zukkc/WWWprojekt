@@ -1,0 +1,94 @@
+.weekly-summary {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.weekly-summary-item {
+  padding: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(135deg, rgba(157, 217, 255, 0.12), rgba(255, 255, 255, 0.04));
+}
+
+.weekly-overview {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.weekly-overview h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.weekly-overview-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.weekly-overview-item {
+  display: grid;
+  grid-template-columns: minmax(76px, 0.8fr) minmax(82px, 0.8fr) minmax(0, 1.4fr);
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.55rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.weekly-overview-item:first-child {
+  border-top: 0;
+}
+
+.weekly-overview-date,
+.weekly-overview-temp,
+.weekly-overview-weather {
+  margin: 0;
+}
+
+.weekly-overview-date {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.weekly-overview-weather {
+  color: var(--muted);
+}
+
+.days-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.day-card {
+  padding: 0.85rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.day-card h3 {
+  margin: 0 0 0.75rem;
+  color: var(--text);
+}
+
+.day-card p {
+  margin: 0.35rem 0;
+}
+
+@media (min-width: 960px) {
+  .weekly-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .days-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
