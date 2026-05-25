@@ -57,19 +57,8 @@ loadHistory("Warszawa", getSelectedDates());
 function loadHistory(city, dates) {
   statusMessage.textContent = "Ładowanie danych...";
 
-  fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1&language=pl&format=json")
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Nie udało się pobrać miasta.");
-      }
-      return response.json();
-    })
-    .then(function (data) {
-      if (!data.results || data.results.length === 0) {
-        throw new Error("Nie znaleziono miasta.");
-      }
-
-      const place = data.results[0];
+  geocodeCity(city)
+    .then(function (place) {
       const url = "https://archive-api.open-meteo.com/v1/archive"
         + "?latitude=" + place.latitude
         + "&longitude=" + place.longitude
