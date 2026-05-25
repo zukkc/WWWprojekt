@@ -1,5 +1,6 @@
 const cityForm = document.getElementById("city-form");
 const cityInput = document.getElementById("city-input");
+const submitButton = cityForm.querySelector('button[type="submit"]');
 const formError = document.getElementById("form-error");
 const statusMessage = document.getElementById("status-message");
 const locationName = document.getElementById("location-name");
@@ -43,6 +44,7 @@ loadChartData("Warszawa");
 
 function loadChartData(city) {
   statusMessage.textContent = "Ładowanie danych...";
+  submitButton.disabled = true;
 
   geocodeCity(city)
     .then(function (place) {
@@ -64,6 +66,7 @@ function loadChartData(city) {
           locationName.textContent = place.name + ", " + place.country;
           drawChart(weather.hourly);
           statusMessage.textContent = "Pobrano dane.";
+          submitButton.disabled = false;
         });
     })
     .catch(function (error) {
@@ -71,6 +74,7 @@ function loadChartData(city) {
       chart.innerHTML = "";
       chartLegend.textContent = "";
       statusMessage.textContent = error.message;
+      submitButton.disabled = false;
     });
 }
 

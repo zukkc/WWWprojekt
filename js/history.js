@@ -1,5 +1,6 @@
 const cityForm = document.getElementById("city-form");
 const cityInput = document.getElementById("city-input");
+const submitButton = cityForm.querySelector('button[type="submit"]');
 const startDateInput = document.getElementById("start-date");
 const endDateInput = document.getElementById("end-date");
 const formError = document.getElementById("form-error");
@@ -56,6 +57,7 @@ loadHistory("Warszawa", getSelectedDates());
 
 function loadHistory(city, dates) {
   statusMessage.textContent = "Ładowanie danych...";
+  submitButton.disabled = true;
 
   geocodeCity(city)
     .then(function (place) {
@@ -78,6 +80,7 @@ function loadHistory(city, dates) {
           showHistory(place, dates, weather.daily);
           addSearchHistoryCity(place.name);
           statusMessage.textContent = "Pobrano dane historyczne.";
+          submitButton.disabled = false;
         });
     })
     .catch(function (error) {
@@ -85,6 +88,7 @@ function loadHistory(city, dates) {
       dateRange.textContent = "-";
       historyBody.innerHTML = "";
       statusMessage.textContent = error.message;
+      submitButton.disabled = false;
     });
 }
 
