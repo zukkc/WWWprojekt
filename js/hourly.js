@@ -18,7 +18,7 @@ cityForm.addEventListener("submit", function (event) {
   formError.textContent = "";
 
   if (city.length < 2) {
-    formError.textContent = "Wpisz nazwe miasta.";
+    formError.textContent = "Wpisz nazwę miasta.";
     cityInput.focus();
     return;
   }
@@ -47,12 +47,12 @@ renderSearchHistory(function (city) {
 loadHourlyWeather("Warszawa");
 
 function loadHourlyWeather(city) {
-  statusMessage.textContent = "Ladowanie danych...";
+  statusMessage.textContent = "Ładowanie danych...";
 
   fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1&language=pl&format=json")
     .then(function (response) {
       if (!response.ok) {
-        throw new Error("Nie udalo sie pobrac miasta.");
+        throw new Error("Nie udało się pobrać miasta.");
       }
       return response.json();
     })
@@ -72,14 +72,14 @@ function loadHourlyWeather(city) {
       return fetch(url)
         .then(function (response) {
           if (!response.ok) {
-            throw new Error("Nie udalo sie pobrac prognozy godzinowej.");
+            throw new Error("Nie udało się pobrać prognozy godzinowej.");
           }
           return response.json();
         })
         .then(function (weather) {
           showChart(place, weather.hourly);
           addSearchHistoryCity(place.name);
-          statusMessage.textContent = "Pobrano prognoze godzinowa.";
+          statusMessage.textContent = "Pobrano prognozę godzinową.";
         });
     })
     .catch(function (error) {
@@ -90,7 +90,7 @@ function loadHourlyWeather(city) {
 
 function showChart(place, hourly) {
   locationName.textContent = place.name + ", " + place.country;
-  chartCaption.textContent = "Dane dla najblizszych " + hourly.time.length + " godzin.";
+  chartCaption.textContent = "Dane dla najbliższych " + hourly.time.length + " godzin.";
   currentHourlyData = hourly;
 
   showDataset(selectedDataset);
@@ -98,7 +98,7 @@ function showChart(place, hourly) {
 
 function clearChart() {
   locationName.textContent = "Brak danych";
-  chartCaption.textContent = "Dane dla najblizszych 24 godzin.";
+  chartCaption.textContent = "Dane dla najbliższych 24 godzin.";
   currentHourlyData = null;
   clearWeatherChart(document.getElementById("hourly-chart"));
 }

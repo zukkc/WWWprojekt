@@ -17,7 +17,7 @@ cityForm.addEventListener("submit", function (event) {
   formError.textContent = "";
 
   if (city.length < 2) {
-    formError.textContent = "Wpisz nazwe miasta.";
+    formError.textContent = "Wpisz nazwę miasta.";
     cityInput.focus();
     return;
   }
@@ -42,12 +42,12 @@ rainButton.addEventListener("click", function () {
 loadChartData("Warszawa");
 
 function loadChartData(city) {
-  statusMessage.textContent = "Ladowanie danych...";
+  statusMessage.textContent = "Ładowanie danych...";
 
   fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1&language=pl&format=json")
     .then(function (response) {
       if (!response.ok) {
-        throw new Error("Nie udalo sie pobrac miasta.");
+        throw new Error("Nie udało się pobrać miasta.");
       }
       return response.json();
     })
@@ -67,7 +67,7 @@ function loadChartData(city) {
       return fetch(url)
         .then(function (response) {
           if (!response.ok) {
-            throw new Error("Nie udalo sie pobrac prognozy.");
+            throw new Error("Nie udało się pobrać prognozy.");
           }
           return response.json();
         })

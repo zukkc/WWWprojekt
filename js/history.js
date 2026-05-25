@@ -19,7 +19,7 @@ cityForm.addEventListener("submit", function (event) {
   formError.textContent = "";
 
   if (city.length < 2) {
-    formError.textContent = "Wpisz nazwe miasta.";
+    formError.textContent = "Wpisz nazwę miasta.";
     cityInput.focus();
     return;
   }
@@ -55,12 +55,12 @@ renderSearchHistory(function (city) {
 loadHistory("Warszawa", getSelectedDates());
 
 function loadHistory(city, dates) {
-  statusMessage.textContent = "Ladowanie danych...";
+  statusMessage.textContent = "Ładowanie danych...";
 
   fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1&language=pl&format=json")
     .then(function (response) {
       if (!response.ok) {
-        throw new Error("Nie udalo sie pobrac miasta.");
+        throw new Error("Nie udało się pobrać miasta.");
       }
       return response.json();
     })
@@ -81,7 +81,7 @@ function loadHistory(city, dates) {
       return fetch(url)
         .then(function (response) {
           if (!response.ok) {
-            throw new Error("Nie udalo sie pobrac danych historycznych.");
+            throw new Error("Nie udało się pobrać danych historycznych.");
           }
           return response.json();
         })
@@ -178,18 +178,18 @@ function validateDates(dates) {
   }
 
   if (start > end) {
-    return "Data poczatkowa nie moze byc pozniejsza niz koncowa.";
+    return "Data początkowa nie może być późniejsza niż końcowa.";
   }
 
   if (end > yesterday) {
-    return "Dane historyczne sa dostepne tylko dla zakonczonych dni.";
+    return "Dane historyczne są dostępne tylko dla zakończonych dni.";
   }
 
   const dayInMilliseconds = 24 * 60 * 60 * 1000;
   const selectedDays = Math.floor((end - start) / dayInMilliseconds) + 1;
 
   if (selectedDays > maxHistoryDays) {
-    return "Zakres nie moze byc dluzszy niz " + maxHistoryDays + " dni.";
+    return "Zakres nie może być dłuższy niż " + maxHistoryDays + " dni.";
   }
 
   return "";

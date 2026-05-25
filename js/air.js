@@ -18,7 +18,7 @@ cityForm.addEventListener("submit", function (event) {
   formError.textContent = "";
 
   if (city.length < 2) {
-    formError.textContent = "Wpisz nazwe miasta.";
+    formError.textContent = "Wpisz nazwę miasta.";
     cityInput.focus();
     return;
   }
@@ -35,12 +35,12 @@ renderSearchHistory(function (city) {
 loadAirQuality("Warszawa");
 
 function loadAirQuality(city) {
-  statusMessage.textContent = "Ladowanie danych...";
+  statusMessage.textContent = "Ładowanie danych...";
 
   fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1&language=pl&format=json")
     .then(function (response) {
       if (!response.ok) {
-        throw new Error("Nie udalo sie pobrac miasta.");
+        throw new Error("Nie udało się pobrać miasta.");
       }
       return response.json();
     })
@@ -61,14 +61,14 @@ function loadAirQuality(city) {
       return fetch(url)
         .then(function (response) {
           if (!response.ok) {
-            throw new Error("Nie udalo sie pobrac jakosci powietrza.");
+            throw new Error("Nie udało się pobrać jakości powietrza.");
           }
           return response.json();
         })
         .then(function (air) {
           showAir(place, air);
           addSearchHistoryCity(place.name);
-          statusMessage.textContent = "Pobrano jakosc powietrza.";
+          statusMessage.textContent = "Pobrano jakość powietrza.";
         });
     })
     .catch(function (error) {
