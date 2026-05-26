@@ -1,5 +1,6 @@
 const cityForm = document.getElementById("city-form");
 const cityInput = document.getElementById("city-input");
+const submitButton = cityForm.querySelector('button[type="submit"]');
 const formError = document.getElementById("form-error");
 const statusMessage = document.getElementById("status-message");
 const locationName = document.getElementById("location-name");
@@ -14,30 +15,30 @@ const weeklyOverviewList = document.getElementById("weekly-overview-list");
 
 const weatherCodes = {
   0: "Bezchmurnie",
-  1: "Przewaznie bezchmurnie",
-  2: "Czesciowe zachmurzenie",
+  1: "Przeważnie bezchmurnie",
+  2: "Częściowe zachmurzenie",
   3: "Pochmurno",
-  45: "Mgla",
-  48: "Osadzajaca sie mgla",
-  51: "Lekka mzawka",
-  53: "Umiarkowana mzawka",
-  55: "Silna mzawka",
-  56: "Lekka marznaca mzawka",
-  57: "Silna marznaca mzawka",
+  45: "Mgła",
+  48: "Osadzająca się mgła",
+  51: "Lekka mżawka",
+  53: "Umiarkowana mżawka",
+  55: "Silna mżawka",
+  56: "Lekka marznąca mżawka",
+  57: "Silna marznąca mżawka",
   61: "Lekki deszcz",
   63: "Umiarkowany deszcz",
   65: "Silny deszcz",
-  66: "Lekki marznacy deszcz",
-  67: "Silny marznacy deszcz",
-  71: "Lekki snieg",
-  73: "Umiarkowany snieg",
-  75: "Silny snieg",
-  77: "Ziarna sniegu",
+  66: "Lekki marznący deszcz",
+  67: "Silny marznący deszcz",
+  71: "Lekki śnieg",
+  73: "Umiarkowany śnieg",
+  75: "Silny śnieg",
+  77: "Ziarna śniegu",
   80: "Lekkie przelotne opady",
   81: "Umiarkowane przelotne opady",
   82: "Silne przelotne opady",
-  85: "Lekkie przelotne opady sniegu",
-  86: "Silne przelotne opady sniegu",
+  85: "Lekkie przelotne opady śniegu",
+  86: "Silne przelotne opady śniegu",
   95: "Burza",
   96: "Burza z lekkim gradem",
   99: "Burza z silnym gradem"
@@ -50,7 +51,7 @@ cityForm.addEventListener("submit", function (event) {
   formError.textContent = "";
 
   if (city.length < 2) {
-    formError.textContent = "Wpisz nazwe miasta.";
+    formError.textContent = "Wpisz nazwę miasta.";
     cityInput.focus();
     return;
   }
@@ -67,21 +68,11 @@ renderSearchHistory(function (city) {
 loadWeeklyWeather("Warszawa");
 
 function loadWeeklyWeather(city) {
-  statusMessage.textContent = "Ladowanie danych...";
+  statusMessage.textContent = "Ładowanie danych...";
+  submitButton.disabled = true;
 
-  fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1&language=pl&format=json")
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Nie udalo sie pobrac miasta.");
-      }
-      return response.json();
-    })
-    .then(function (data) {
-      if (!data.results || data.results.length === 0) {
-        throw new Error("Nie znaleziono miasta.");
-      }
-
-      const place = data.results[0];
+  geocodeCity(city)
+    .then(function (place) {
       const url = "https://api.open-meteo.com/v1/forecast"
         + "?latitude=" + place.latitude
         + "&longitude=" + place.longitude
@@ -92,7 +83,7 @@ function loadWeeklyWeather(city) {
       return fetch(url)
         .then(function (response) {
           if (!response.ok) {
-            throw new Error("Nie udalo sie pobrac prognozy 7-dniowej.");
+            throw new Error("Nie udało się pobrać prognozy 7-dniowej.");
           }
           return response.json();
         })
@@ -101,7 +92,8 @@ function loadWeeklyWeather(city) {
           showWeeklySummary(weather.daily);
           showWeeklyOverview(weather.daily);
           addSearchHistoryCity(place.name);
-          statusMessage.textContent = "Pobrano prognoze 7-dniowa.";
+          statusMessage.textContent = "Pobrano prognozę 7-dniową.";
+          submitButton.disabled = false;
         });
     })
     .catch(function (error) {
@@ -110,6 +102,7 @@ function loadWeeklyWeather(city) {
       clearWeeklySummary();
       weeklyOverviewList.innerHTML = "";
       statusMessage.textContent = error.message;
+      submitButton.disabled = false;
     });
 }
 
@@ -146,11 +139,11 @@ function showDays(place, daily) {
     card.appendChild(text5);
 
     const text6 = document.createElement("p");
-    text6.textContent = "Wschod: " + daily.sunrise[i].slice(11, 16);
+    text6.textContent = "Wschód: " + daily.sunrise[i].slice(11, 16);
     card.appendChild(text6);
 
     const text7 = document.createElement("p");
-    text7.textContent = "Zachod: " + daily.sunset[i].slice(11, 16);
+    text7.textContent = "Zachód: " + daily.sunset[i].slice(11, 16);
     card.appendChild(text7);
 
     daysList.appendChild(card);

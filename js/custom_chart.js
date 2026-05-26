@@ -1,5 +1,6 @@
 const cityForm = document.getElementById("city-form");
 const cityInput = document.getElementById("city-input");
+const submitButton = cityForm.querySelector('button[type="submit"]');
 const formError = document.getElementById("form-error");
 const statusMessage = document.getElementById("status-message");
 const locationName = document.getElementById("location-name");
@@ -17,7 +18,7 @@ cityForm.addEventListener("submit", function (event) {
   formError.textContent = "";
 
   if (city.length < 2) {
-    formError.textContent = "Wpisz nazwe miasta.";
+    formError.textContent = "Wpisz nazwę miasta.";
     cityInput.focus();
     return;
   }
@@ -42,21 +43,11 @@ rainButton.addEventListener("click", function () {
 loadChartData("Warszawa");
 
 function loadChartData(city) {
-  statusMessage.textContent = "Ladowanie danych...";
+  statusMessage.textContent = "Ładowanie danych...";
+  submitButton.disabled = true;
 
-  fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1&language=pl&format=json")
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Nie udalo sie pobrac miasta.");
-      }
-      return response.json();
-    })
-    .then(function (data) {
-      if (!data.results || data.results.length === 0) {
-        throw new Error("Nie znaleziono miasta.");
-      }
-
-      const place = data.results[0];
+  geocodeCity(city)
+    .then(function (place) {
       const url = "https://api.open-meteo.com/v1/forecast"
         + "?latitude=" + place.latitude
         + "&longitude=" + place.longitude
@@ -67,7 +58,7 @@ function loadChartData(city) {
       return fetch(url)
         .then(function (response) {
           if (!response.ok) {
-            throw new Error("Nie udalo sie pobrac prognozy.");
+            throw new Error("Nie udało się pobrać prognozy.");
           }
           return response.json();
         })
@@ -75,6 +66,7 @@ function loadChartData(city) {
           locationName.textContent = place.name + ", " + place.country;
           drawChart(weather.hourly);
           statusMessage.textContent = "Pobrano dane.";
+          submitButton.disabled = false;
         });
     })
     .catch(function (error) {
@@ -82,6 +74,7 @@ function loadChartData(city) {
       chart.innerHTML = "";
       chartLegend.textContent = "";
       statusMessage.textContent = error.message;
+      submitButton.disabled = false;
     });
 }
 

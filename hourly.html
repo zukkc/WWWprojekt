@@ -13,7 +13,7 @@
   <header>
     <nav>
       <ul>
-        <li class="btn"><a href="index.html">Glowna</a></li>
+        <li class="btn"><a href="index.html">Główna</a></li>
         <li class="btn"><a href="hourly.html">Godzinowa</a></li>
         <li class="btn"><a href="weekly.html">7 dni</a></li>
         <li class="btn"><a href="history.html">Historia</a></li>
@@ -30,16 +30,16 @@
         <form id="city-form" class="search-panel">
           <label for="city-input" class="p-normal">Wpisz miasto</label>
           <div class="search-row">
-            <input id="city-input" type="text" name="city" placeholder="Np. Krakow" autocomplete="off">
-            <button type="submit" class="btn">Sprawdz</button>
+            <input id="city-input" type="text" name="city" placeholder="Np. Kraków" autocomplete="off">
+            <button type="submit" class="btn">Sprawdź</button>
           </div>
-          <div id="search-history-list" class="search-history-list" aria-label="Historia wyszukiwan" hidden></div>
+          <div id="search-history-list" class="search-history-list" aria-label="Historia wyszukiwań" hidden></div>
           <p id="form-error" class="form-error" aria-live="polite"></p>
         </form>
 
         <div class="summary-panel">
           <p id="location-name" class="p-big">Brak danych</p>
-          <p id="chart-caption" class="p-small">Dane dla najblizszych 24 godzin.</p>
+          <p id="chart-caption" class="p-small">Dane dla najbliższych 24 godzin.</p>
         </div>
 
         <p id="status-message" class="status-message" aria-live="polite"></p>
@@ -50,7 +50,7 @@
       <section class="card-content">
         <div class="details-heading">
           <h2>Wykres</h2>
-          <p class="p-small">Mozesz przelaczac typ danych.</p>
+          <p class="p-small">Możesz przełączać typ danych.</p>
         </div>
 
         <div class="button-row">
@@ -71,6 +71,7 @@
   </footer>
 
   <script src="js/weather_chart.js"></script>
+  <script src="js/geocoding.js"></script>
   <script src="js/search_history.js"></script>
   <script src="js/hourly.js"></script>
 </body>

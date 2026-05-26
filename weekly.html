@@ -13,7 +13,7 @@
   <header>
     <nav>
       <ul>
-        <li class="btn"><a href="index.html">Glowna</a></li>
+        <li class="btn"><a href="index.html">Główna</a></li>
         <li class="btn"><a href="hourly.html">Godzinowa</a></li>
         <li class="btn"><a href="weekly.html">7 dni</a></li>
         <li class="btn"><a href="history.html">Historia</a></li>
@@ -30,10 +30,10 @@
         <form id="city-form" class="search-panel">
           <label for="city-input" class="p-normal">Wpisz miasto</label>
           <div class="search-row">
-            <input id="city-input" type="text" name="city" placeholder="Np. Gdansk" autocomplete="off">
-            <button type="submit" class="btn">Sprawdz</button>
+            <input id="city-input" type="text" name="city" placeholder="Np. Gdańsk" autocomplete="off">
+            <button type="submit" class="btn">Sprawdź</button>
           </div>
-          <div id="search-history-list" class="search-history-list" aria-label="Historia wyszukiwan" hidden></div>
+          <div id="search-history-list" class="search-history-list" aria-label="Historia wyszukiwań" hidden></div>
           <p id="form-error" class="form-error" aria-live="polite"></p>
         </form>
 
@@ -44,17 +44,17 @@
 
         <div class="weekly-summary" aria-label="Podsumowanie prognozy 7-dniowej">
           <div class="weekly-summary-item">
-            <p class="p-normal">Najcieplejszy dzien</p>
+            <p class="p-normal">Najcieplejszy dzień</p>
             <span id="warmest-day" class="p-value">--</span>
             <p id="warmest-day-date" class="p-small">--</p>
           </div>
           <div class="weekly-summary-item">
-            <p class="p-normal">Najchlodniejszy dzien</p>
+            <p class="p-normal">Najchłodniejszy dzień</p>
             <span id="coldest-day" class="p-value">--</span>
             <p id="coldest-day-date" class="p-small">--</p>
           </div>
           <div class="weekly-summary-item">
-            <p class="p-normal">Suma opadow</p>
+            <p class="p-normal">Suma opadów</p>
             <span id="weekly-rain-sum" class="p-value">--</span>
           </div>
           <div class="weekly-summary-item">
@@ -63,8 +63,8 @@
           </div>
         </div>
 
-        <div class="weekly-overview" aria-label="Szybki przeglad prognozy">
-          <h2>Szybki przeglad</h2>
+        <div class="weekly-overview" aria-label="Szybki przegląd prognozy">
+          <h2>Szybki przegląd</h2>
           <div id="weekly-overview-list" class="weekly-overview-list"></div>
         </div>
 
@@ -76,7 +76,7 @@
       <section class="card-content">
         <div class="details-heading">
           <h2>Dni</h2>
-          <p class="p-small">Kazdy kafelek pokazuje osobny dzien.</p>
+          <p class="p-small">Każdy kafelek pokazuje osobny dzień.</p>
         </div>
 
         <section id="days-list" class="days-list"></section>
@@ -88,6 +88,7 @@
     <p>&copy; Projekt na studia</p>
   </footer>
 
+  <script src="js/geocoding.js"></script>
   <script src="js/search_history.js"></script>
   <script src="js/weekly.js"></script>
 </body>

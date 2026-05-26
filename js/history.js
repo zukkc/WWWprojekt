@@ -1,5 +1,6 @@
 const cityForm = document.getElementById("city-form");
 const cityInput = document.getElementById("city-input");
+const submitButton = cityForm.querySelector('button[type="submit"]');
 const startDateInput = document.getElementById("start-date");
 const endDateInput = document.getElementById("end-date");
 const formError = document.getElementById("form-error");
@@ -19,7 +20,7 @@ cityForm.addEventListener("submit", function (event) {
   formError.textContent = "";
 
   if (city.length < 2) {
-    formError.textContent = "Wpisz nazwe miasta.";
+    formError.textContent = "Wpisz nazwę miasta.";
     cityInput.focus();
     return;
   }
@@ -55,21 +56,11 @@ renderSearchHistory(function (city) {
 loadHistory("Warszawa", getSelectedDates());
 
 function loadHistory(city, dates) {
-  statusMessage.textContent = "Ladowanie danych...";
+  statusMessage.textContent = "Ładowanie danych...";
+  submitButton.disabled = true;
 
-  fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1&language=pl&format=json")
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Nie udalo sie pobrac miasta.");
-      }
-      return response.json();
-    })
-    .then(function (data) {
-      if (!data.results || data.results.length === 0) {
-        throw new Error("Nie znaleziono miasta.");
-      }
-
-      const place = data.results[0];
+  geocodeCity(city)
+    .then(function (place) {
       const url = "https://archive-api.open-meteo.com/v1/archive"
         + "?latitude=" + place.latitude
         + "&longitude=" + place.longitude
@@ -81,7 +72,7 @@ function loadHistory(city, dates) {
       return fetch(url)
         .then(function (response) {
           if (!response.ok) {
-            throw new Error("Nie udalo sie pobrac danych historycznych.");
+            throw new Error("Nie udało się pobrać danych historycznych.");
           }
           return response.json();
         })
@@ -89,6 +80,7 @@ function loadHistory(city, dates) {
           showHistory(place, dates, weather.daily);
           addSearchHistoryCity(place.name);
           statusMessage.textContent = "Pobrano dane historyczne.";
+          submitButton.disabled = false;
         });
     })
     .catch(function (error) {
@@ -96,6 +88,7 @@ function loadHistory(city, dates) {
       dateRange.textContent = "-";
       historyBody.innerHTML = "";
       statusMessage.textContent = error.message;
+      submitButton.disabled = false;
     });
 }
 
@@ -178,18 +171,18 @@ function validateDates(dates) {
   }
 
   if (start > end) {
-    return "Data poczatkowa nie moze byc pozniejsza niz koncowa.";
+    return "Data początkowa nie może być późniejsza niż końcowa.";
   }
 
   if (end > yesterday) {
-    return "Dane historyczne sa dostepne tylko dla zakonczonych dni.";
+    return "Dane historyczne są dostępne tylko dla zakończonych dni.";
   }
 
   const dayInMilliseconds = 24 * 60 * 60 * 1000;
   const selectedDays = Math.floor((end - start) / dayInMilliseconds) + 1;
 
   if (selectedDays > maxHistoryDays) {
-    return "Zakres nie moze byc dluzszy niz " + maxHistoryDays + " dni.";
+    return "Zakres nie może być dłuższy niż " + maxHistoryDays + " dni.";
   }
 
   return "";

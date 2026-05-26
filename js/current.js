@@ -1,5 +1,6 @@
 const cityForm = document.getElementById("city-form");
 const cityInput = document.getElementById("city-input");
+const submitButton = cityForm.querySelector('button[type="submit"]');
 const formError = document.getElementById("form-error");
 const statusMessage = document.getElementById("status-message");
 const locationName = document.getElementById("location-name");
@@ -24,34 +25,34 @@ let selectedDataset = 0;
 let currentHourlyData = null;
 
 const weatherCodes = {
-  0: "Bezchmurnie",
-  1: "Przewaznie bezchmurnie",
-  2: "Czesciowe zachmurzenie",
-  3: "Pochmurno",
-  45: "Mgla",
-  48: "Osadzajaca sie mgla",
-  51: "Lekka mzawka",
-  53: "Umiarkowana mzawka",
-  55: "Silna mzawka",
-  56: "Lekka marznaca mzawka",
-  57: "Silna marznaca mzawka",
-  61: "Lekki deszcz",
-  63: "Umiarkowany deszcz",
-  65: "Silny deszcz",
-  66: "Lekki marznacy deszcz",
-  67: "Silny marznacy deszcz",
-  71: "Lekki snieg",
-  73: "Umiarkowany snieg",
-  75: "Silny snieg",
-  77: "Ziarna sniegu",
-  80: "Lekkie przelotne opady",
-  81: "Umiarkowane przelotne opady",
-  82: "Silne przelotne opady",
-  85: "Lekkie przelotne opady sniegu",
-  86: "Silne przelotne opady sniegu",
-  95: "Burza",
-  96: "Burza z lekkim gradem",
-  99: "Burza z silnym gradem"
+  0: "☀️ Bezchmurnie",
+  1: "🌤️ Przeważnie bezchmurnie",
+  2: "⛅ Częściowe zachmurzenie",
+  3: "☁️ Pochmurno",
+  45: "🌫️ Mgła",
+  48: "🌫️ Osadzająca się mgła",
+  51: "🌦️ Lekka mżawka",
+  53: "🌦️ Umiarkowana mżawka",
+  55: "🌧️ Silna mżawka",
+  56: "🌧️ Lekka marznąca mżawka",
+  57: "🌧️ Silna marznąca mżawka",
+  61: "🌦️ Lekki deszcz",
+  63: "🌧️ Umiarkowany deszcz",
+  65: "🌧️ Silny deszcz",
+  66: "🌧️ Lekki marznący deszcz",
+  67: "🌧️ Silny marznący deszcz",
+  71: "🌨️ Lekki śnieg",
+  73: "🌨️ Umiarkowany śnieg",
+  75: "❄️ Silny śnieg",
+  77: "❄️ Ziarna śniegu",
+  80: "🌦️ Lekkie przelotne opady",
+  81: "🌧️ Umiarkowane przelotne opady",
+  82: "🌧️ Silne przelotne opady",
+  85: "🌨️ Lekkie przelotne opady śniegu",
+  86: "🌨️ Silne przelotne opady śniegu",
+  95: "⛈️ Burza",
+  96: "⛈️ Burza z lekkim gradem",
+  99: "⛈️ Burza z silnym gradem"
 };
 
 if (tempButton) {
@@ -85,7 +86,7 @@ cityForm.addEventListener("submit", function (event) {
   formError.textContent = "";
 
   if (city.length < 2) {
-    formError.textContent = "Wpisz nazwe miasta.";
+    formError.textContent = "Wpisz nazwę miasta.";
     cityInput.focus();
     return;
   }
@@ -96,21 +97,11 @@ cityForm.addEventListener("submit", function (event) {
 loadCurrentWeather("Warszawa");
 
 function loadCurrentWeather(city) {
-  statusMessage.textContent = "Ladowanie danych...";
+  statusMessage.textContent = "Ładowanie danych...";
+  submitButton.disabled = true;
 
-  fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1&language=pl&format=json")
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Nie udalo sie pobrac miasta.");
-      }
-      return response.json();
-    })
-    .then(function (data) {
-      if (!data.results || data.results.length === 0) {
-        throw new Error("Nie znaleziono miasta.");
-      }
-
-      const place = data.results[0];
+  geocodeCity(city)
+    .then(function (place) {
       const url = "https://api.open-meteo.com/v1/forecast"
         + "?latitude=" + place.latitude
         + "&longitude=" + place.longitude
@@ -122,7 +113,7 @@ function loadCurrentWeather(city) {
       return fetch(url)
         .then(function (response) {
           if (!response.ok) {
-            throw new Error("Nie udalo sie pobrac pogody.");
+            throw new Error("Nie udało się pobrać pogody.");
           }
           return response.json();
         })
@@ -130,12 +121,14 @@ function loadCurrentWeather(city) {
           showWeather(place, weather.current);
           showHourlyChart(weather.hourly);
           addSearchHistoryCity(place.name);
-          statusMessage.textContent = "Pobrano aktualna pogode.";
+          statusMessage.textContent = "Pobrano aktualną pogodę.";
+          submitButton.disabled = false;
         });
     })
     .catch(function (error) {
       clearView();
       statusMessage.textContent = error.message;
+      submitButton.disabled = false;
     });
 }
 
@@ -167,7 +160,7 @@ function clearView() {
   clearHourlySummary();
 
   if (chartCaption) {
-    chartCaption.textContent = "Dane dla najblizszych 24 godzin.";
+    chartCaption.textContent = "Dane dla najbliższych 24 godzin.";
   }
 }
 
@@ -192,7 +185,7 @@ function showHourlyChart(hourly) {
   currentHourlyData = hourly;
 
   if (chartCaption) {
-    chartCaption.textContent = "Dane dla najblizszych " + hourly.time.length + " godzin.";
+    chartCaption.textContent = "Dane dla najbliższych " + hourly.time.length + " godzin.";
   }
 
   showHourlySummary(hourly);

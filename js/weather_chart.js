@@ -15,7 +15,7 @@ function drawWeatherChart(options) {
   chart.setAttribute("viewBox", "0 0 760 360");
 
   if (labels.length === 0 || values.length === 0) {
-    drawEmptyMessage(chart, "Brak danych do wyswietlenia");
+    drawEmptyMessage(chart, "Brak danych do wyświetlenia");
     return;
   }
 
